@@ -1,6 +1,14 @@
 <template>
   <div class="tabs_wrap">
-    <el-tag :key="tag" v-for="tag in tags" :closable="tag.label != '首页'" :disable-transitions="false" @close="handleClose(tag)" @click="tabClick(tag)">
+    <el-tag
+      :key="tag.label"
+      v-for="tag in tags"
+      :closable="tag.label != '首页'"
+      :effect="tag.path === $route.path ? 'dark' : 'light'"
+      :disable-transitions="false"
+      @close="handleClose(tag)"
+      @click="tabClick(tag)"
+    >
       {{ tag.label }}
     </el-tag>
   </div>
@@ -15,11 +23,7 @@ export default {
     }),
   },
   data() {
-    return {
-      dynamicTags: ['标签一', '标签二', '标签三'],
-      inputVisible: false,
-      inputValue: '',
-    }
+    return {}
   },
   methods: {
     ...mapMutations({
@@ -32,6 +36,9 @@ export default {
       this.$router.push({ path: tag.path })
       this.$store.commit('selectMenu', tag)
     },
+  },
+  mounted() {
+    console.log(this.$route)
   },
 }
 </script>

@@ -5,6 +5,7 @@ Vue.use(Vuex)
 
 export default {
   state: {
+    isCollapse: false,
     menu: [],
     currentMenu: null,
     tabList: [{ path: '/', label: '首页', icon: 'home' }],
@@ -24,6 +25,9 @@ export default {
     closeTab(state, val) {
       let res = state.tabList.findIndex((item) => item.label === val.label)
       state.tabList.splice(res, 1)
+    },
+    changeAside(state) {
+      state.isCollapse = !state.isCollapse
     },
   },
   actions: {},

@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="l_header">
-      <el-button type="primary" icon="el-icon-menu" size="mini"></el-button>
+      <el-button @click="asideClick()" type="primary" icon="el-icon-menu" size="mini"></el-button>
       <el-breadcrumb separator="/">
         <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
         <el-breadcrumb-item v-if="current" :to="current.path">{{ current.label }}</el-breadcrumb-item>
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 export default {
   computed: {
     ...mapState({
@@ -32,6 +32,14 @@ export default {
     return {
       userImg: require('../assets/image/xiongmao.jpg'),
     }
+  },
+  methods: {
+    ...mapMutations({
+      changeAside: 'changeAside',
+    }),
+    asideClick: function () {
+      this.changeAside()
+    },
   },
   mounted: function () {
     console.log(this.$store.state.Tab.menu)
@@ -68,6 +76,6 @@ header {
   color: white;
 }
 .el-breadcrumb__inner.is-link {
-  color: white;
+  color: #666;
 }
 </style>

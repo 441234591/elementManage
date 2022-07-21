@@ -1,5 +1,12 @@
 <template>
-  <el-menu default-active="2" class="el-menu-vertical-demo" background-color="#33aef0" text-color="#fff" active-text-color="#ffd04b">
+  <el-menu
+    default-active="2"
+    class="el-menu-vertical-demo"
+    background-color="#495259"
+    text-color="#fff"
+    active-text-color="#ffd04b"
+    :collapse="$store.state.Tab.isCollapse"
+  >
     <el-menu-item v-for="item in noChildren" :key="item.path" :index="item.path" @click="clickMenu(item)">
       <i :class="'el-icon-' + item.icon"></i>
       <span slot="title">{{ item.label }}</span>
@@ -29,7 +36,7 @@ export default {
   data() {
     return {
       asideMenu: [
-        { path: '/', label: '首页', icon: 'home' },
+        { path: '/', label: '首页', icon: 's-home' },
         { path: '/video', label: '视频管理', icon: 'video-play' },
         { path: '/user', label: '用户管理', icon: 'user' },
         {
@@ -53,6 +60,14 @@ export default {
       //alert(1)
     },
   },
+  mounted() {
+    // this.$http.get('cockpit/index/qualifiedSupplier/getbysdate?sdate=2022', {}, function (res) {
+    //   console.log(res)
+    // })
+    this.$http.get('cockpit/index/qualifiedSupplier/getbysdate').then((res) => {
+      console.log(res)
+    })
+  },
 }
 </script>
 
@@ -60,5 +75,9 @@ export default {
 .el-menu {
   height: 100%;
   border: none;
+}
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 200px;
+  min-height: 400px;
 }
 </style>
