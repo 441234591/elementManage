@@ -34,7 +34,7 @@
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page.sync="page_Config.page"
-      :page-sizes="[20, 50, 100, 200]"
+      :page-sizes="[10, 50, 100, 200]"
       :page-size="page_Config.pageSize"
       layout="total, sizes, prev, pager, next, jumper"
       :total="page_Config.total"
@@ -62,7 +62,11 @@ export default {
   },
   methods: {
     dlgcomfirm: function () {
-      alert(1)
+      this.$http.post('/index/addUser', this.digData).then((res) => {
+        console.log(res)
+        this.isDialogShow = false
+        this.$message(res.data.msg)
+      })
     },
     handleDelete: function (row) {
       console.log(row)

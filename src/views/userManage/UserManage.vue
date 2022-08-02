@@ -131,7 +131,7 @@ export default {
       tableData: [],
       pageConfig: {
         page: 1,
-        pageSize: 20,
+        pageSize: 10,
         total: 100,
         isloading: true,
       },
@@ -148,10 +148,12 @@ export default {
         this.pageConfig.pageSize = params.pageSize
       }
       this.$http
-        .get('cockpit/index/getUserList', {
-          searchName: params.searchName,
-          page: this.pageConfig.page,
-          pageSize: this.pageConfig.pageSize,
+        .get('/index/getUserList', {
+          params: {
+            searchName: params.searchName,
+            page: this.pageConfig.page,
+            pageSize: this.pageConfig.pageSize,
+          },
         })
         .then((res) => {
           console.log(res)
