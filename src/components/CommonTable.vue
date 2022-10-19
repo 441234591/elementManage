@@ -1,12 +1,5 @@
 <template>
   <div>
-    <el-dialog :title="digConfig.title" :visible.sync="isDialogShow">
-      <CommonForm :formLabel="digConfig.dlg_labels" :form="digData"></CommonForm>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="isDialogShow = false">取 消</el-button>
-        <el-button type="primary" @click="dlgcomfirm">确 定</el-button>
-      </div>
-    </el-dialog>
     <el-table :data="tableData" stripe border height="500" style="width: 100%" v-loading="pageConfig.isloading">
       <el-table-column fixed prop="index" label="序号" width="50">
         <template slot-scope="scope">
@@ -44,7 +37,7 @@
 </template>
 
 <script>
-import CommonForm from './CommonForm.vue'
+// import CommonForm from './CommonForm.vue'
 export default {
   props: {
     tableData: Array,
@@ -58,6 +51,7 @@ export default {
       table_Data: this.tableData,
       page_Config: this.pageConfig,
       isDialogShow: false,
+      dlg_title: '新增',
     }
   },
   methods: {
@@ -74,6 +68,7 @@ export default {
     },
     handleEdit: function (row) {
       console.log(row)
+      this.$emit('edit', row)
     },
     handleSizeChange: function (s) {
       console.log('pagesize:' + s)
@@ -86,8 +81,9 @@ export default {
   },
   mounted() {
     this.table_Data = this.tableData
+    console.log(this.digData)
   },
-  components: { CommonForm },
+  // components: { CommonForm },
 }
 </script>
 

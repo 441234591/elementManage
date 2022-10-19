@@ -19,6 +19,15 @@ import '@/mock'
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 
+let str = '2022-01-25'
+let reg = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/
+let res = str.replace(reg, '$<year>/$<month>/$<day>')
+res = str.replace(reg, (...args) => {
+  console.log(args)
+  let { year, month, day } = args[args.length - 1]
+  return `${year}/${day}/${month}`
+})
+console.log(res)
 new Vue({
   router,
   store,

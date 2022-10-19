@@ -28,6 +28,13 @@ Mock.mock(/\/index\/getUserList/, 'get', (option) => {
       }
     })
   }
+  if (obj.selectCity != '' && obj.selectCity != undefined) {
+    res.data = res.data.filter((user) => {
+      if (user.addr.indexOf(obj.selectCity) != -1) {
+        return user
+      }
+    })
+  }
   res.data = res.data.filter((user, index) => {
     if (index < obj.page * obj.pageSize && index >= (obj.page - 1) * obj.pageSize) {
       return user

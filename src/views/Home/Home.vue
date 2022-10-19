@@ -15,7 +15,7 @@
         </div>
       </el-card>
       <el-card class="bottom" shadow="hover">
-        <el-table :data="tableData" style="width: 100%" height="150">
+        <el-table :data="tableData" style="width: 100%" height="320">
           <el-table-column fixed prop="date" label="日期" width="100"> </el-table-column>
           <el-table-column prop="name" label="姓名" width="100"> </el-table-column>
           <el-table-column prop="province" label="省份" width="100"> </el-table-column>

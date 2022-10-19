@@ -3,15 +3,24 @@
     <div class="user_top">
       <el-button type="primary">新增</el-button>
       <common-form :inline="true" :formLabel="formLabel" :form="formData">
-        <el-button type="primary">搜索</el-button>
+        <el-button type="primary" @click="submitForm()">搜索</el-button>
       </common-form>
     </div>
+    <el-dialog :title="digConfig.title" :visible.sync="isDialogShow">
+      <CommonForm :formLabel="digConfig.dlg_labels" :form="digData" ref="form"></CommonForm>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="isDialogShow = false">取 消</el-button>
+        <el-button type="primary">确 定</el-button>
+      </div>
+    </el-dialog>
     <common-table
       :digData="digData"
       :digConfig="digConfig"
       :pageConfig="pageConfig"
       :tableData="tableData"
       :tableLabel="tableLabel"
+      @edit="editUser"
+      @del="delUser"
       @pageChange="pageChange"
     ></common-table>
   </div>
@@ -36,6 +45,7 @@ export default {
           label: '用户名',
         },
       ],
+      isDialogShow: false,
       formData: {
         selectCity: '',
         searchStr: '123456',
@@ -150,6 +160,7 @@ export default {
       this.$http
         .get('/index/getUserList', {
           params: {
+            selectCity: params.selectCity,
             searchName: params.searchName,
             page: this.pageConfig.page,
             pageSize: this.pageConfig.pageSize,
@@ -165,9 +176,29 @@ export default {
           })
         })
     },
+    submitForm: function () {
+      console.log(this.formData)
+      let p = {}
+      p.searchName = this.formData.searchStr
+      p.selectCity = this.formData.selectCity
+      p.page = 1
+      p.pageSize = this.pageConfig.pageSize
+      this.pageChange(p)
+    },
+    editUser: function (row) {
+      console.log(row)
+      this.digData = null
+      let p = row
+      this.digData = p
+      this.digConfig.title = '修改'
+      this.isDialogShow = true
+    },
+    delUser: function (p) {
+      console.log(p)
+    },
   },
   mounted() {
-    this.pageChange('', 1, this.pageConfig.pageSize)
+    this.pageChange('')
   },
 }
 </script>
